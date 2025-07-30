@@ -1,0 +1,19 @@
+# Virtual envs
+*env/
+*venv/
+
+# NPM package files
+package.json
+package-lock.json
+
+# Libraries
+**/libraries/*
+**/common/flatpickr/*.js
+**/common/json-editor*/*.js
+**/common/uikit/*.js
+
+# Babel
+gulpfile.babel.js
+
+# Minified
+*.min.js
