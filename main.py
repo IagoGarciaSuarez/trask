@@ -145,7 +145,6 @@ def summary():
                 [task.uid, task.description, tag, state.value.upper(), mod_str]
             )
 
-    click.echo(f"---- {state.value.upper()} ----")
     click.echo(
         tabulate(
             table,
