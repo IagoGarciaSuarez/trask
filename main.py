@@ -119,25 +119,31 @@ def clean():
 
 
 @cli.command()
-def s():
-    """Tasks summary"""
-    summary()
+@click.argument("modo", required=False, default="")
+def s(modo):
+    """Tasks summary. Use 's all' to show also 'done'."""
+    mostrar_todo = modo.lower() == "all"
+    summary(mostrar_todo)
 
 
-def summary():
+def summary(mostrar_todo: bool):
     tasks = load_tasks()
 
     click.echo("Tasks summary:\n")
 
     table = []
+
     for state in TaskState:
+        if not mostrar_todo and state == TaskState.DONE:
+            continue
+
         filtered = [t for t in tasks if t.state == state]
         if not filtered:
             continue
 
         for task in filtered:
             mod_dt = datetime.fromisoformat(task.last_modified)
-            mod_str = mod_dt.strftime("%d-%m-%Y")
+            mod_str = mod_dt.strftime("%d/%m/%Y")
 
             tag = ""
             if mod_dt.date() == datetime.now().date():
@@ -152,13 +158,7 @@ def summary():
     click.echo(
         tabulate(
             table,
-            headers=[
-                "ID",
-                "Description",
-                "Tag",
-                "State",
-                "Last modified",
-            ],
+            headers=["ID", "Description", "Tag", "State", "Last modified"],
             tablefmt="fancy_grid",
         )
     )
