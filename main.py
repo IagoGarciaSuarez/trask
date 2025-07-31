@@ -134,7 +134,7 @@ def summary(mostrar_todo: bool):
     table = []
 
     for state in TaskState:
-        if not mostrar_todo and state == TaskState.DONE:
+        if not mostrar_todo and state in [TaskState.DONE, TaskState.HOLD]:
             continue
 
         filtered = [t for t in tasks if t.state == state]
