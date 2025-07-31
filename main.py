@@ -153,12 +153,12 @@ def summary(mostrar_todo: bool):
 
             wrapped_desc = "\n".join(textwrap.wrap(task.description, width=MAX_WIDTH))
 
-            table.append([task.uid, wrapped_desc, tag, state.value.upper(), mod_str])
+            table.append([task.uid, wrapped_desc, state.value.upper(), tag, mod_str])
 
     click.echo(
         tabulate(
             table,
-            headers=["ID", "Description", "Tag", "State", "Last modified"],
+            headers=["ID", "Description", "State", "Tag", "Last modified"],
             tablefmt="fancy_grid",
         )
     )
