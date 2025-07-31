@@ -101,16 +101,15 @@ def u(index, state):
 
 @cli.command()
 def clean():
-    """Remove done tasks older than yesterday"""
+    """Remove done tasks older than today"""
     tasks = load_tasks()
-    yesterday = datetime.now().date() - timedelta(days=1)
-
+    today = datetime.now().date()
     remaining_tasks = []
     removed_count = 0
 
     for task in tasks:
         mod_date = datetime.fromisoformat(task.last_modified).date()
-        if task.state == TaskState.DONE and mod_date < yesterday:
+        if task.state == TaskState.DONE and mod_date < today:
             removed_count += 1
         else:
             remaining_tasks.append(task)
