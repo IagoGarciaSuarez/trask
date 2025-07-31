@@ -55,20 +55,6 @@ def add(description: str):
 
 
 @cli.command()
-def list():
-    """Show all tasks"""
-    tasks = load_tasks()
-    if not tasks:
-        click.echo("No tasks")
-        return
-
-    for i, task in enumerate(tasks):
-        click.echo(
-            f"{i}. [{task.state.value}] {task.description} (Last mod.: {task.last_modified})"
-        )
-
-
-@cli.command()
 @click.argument("index", type=int)
 def d(index):
     """Remove a task by index"""
@@ -85,7 +71,7 @@ def d(index):
 @click.argument("index", type=int)
 @click.argument("state")
 def u(index, state):
-    """Update task state"""
+    """Update task state - States: pending | started | hold | pr | done"""
     tasks = load_tasks()
     try:
         new_state = TaskState.from_str(state)
@@ -121,7 +107,7 @@ def clean():
 @cli.command()
 @click.argument("modo", required=False, default="")
 def s(modo):
-    """Tasks summary. Use 's all' to show also 'done'."""
+    """Tasks summary - Use 's all' to show also 'done'"""
     mostrar_todo = modo.lower() == "all"
     summary(mostrar_todo)
 
