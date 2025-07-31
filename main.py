@@ -3,11 +3,16 @@
 import json
 import os
 from datetime import datetime, timedelta
+import shutil
+import textwrap
 
 import click
 from tabulate import tabulate
 
 from task import TASKS_FILE, Task, TaskState
+
+term_width = shutil.get_terminal_size((80, 20)).columns
+MAX_WIDTH = int(term_width * 0.25)
 
 
 def load_tasks():
@@ -141,9 +146,9 @@ def summary():
             elif mod_dt.date() == (datetime.now() - timedelta(days=1)).date():
                 tag = "YESTERDAY"
 
-            table.append(
-                [task.uid, task.description, tag, state.value.upper(), mod_str]
-            )
+            wrapped_desc = "\n".join(textwrap.wrap(task.description, width=MAX_WIDTH))
+
+            table.append([task.uid, wrapped_desc, tag, state.value.upper(), mod_str])
 
     click.echo(
         tabulate(
