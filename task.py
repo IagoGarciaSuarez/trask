@@ -6,10 +6,11 @@ TASKS_FILE = "/home/iago/repos/tasky/tasks.json"
 
 
 class TaskState(Enum):
+    DONE = "done"
+    PR = "pr"
     STARTED = "started"
     PENDING = "pending"
     HOLD = "hold"
-    DONE = "done"
 
     @classmethod
     def from_str(cls, state_str):
