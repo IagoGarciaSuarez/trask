@@ -13,8 +13,8 @@ Give execution permission
 
 Add a symbolic link to use it from any location
 
-> sudo ln -s <route_to_tasky_root>/main.py /usr/local/bin/tasky
+> sudo ln -s <route_to_tasky_root>/main.py /usr/local/bin/trask
 
 Check commands:
 
-> tasky
+> trask
