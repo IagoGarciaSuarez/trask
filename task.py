@@ -7,6 +7,8 @@ TASKS_FILE = "/home/iago/repos/trask/tasks.json"
 
 class TaskState(Enum):
     DONE = "done"
+    REPEAT = "repeat"
+    PRE = "pre"
     PR = "pr"
     STARTED = "started"
     PENDING = "pending"
