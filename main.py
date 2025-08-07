@@ -42,11 +42,21 @@ def cli():
 @cli.command()
 @click.argument("description", nargs=-1)
 def add(description: str):
+    add_task(0, description)
+
+
+@cli.command()
+@click.argument("description", nargs=-1)
+def r(description: str):
+    add_task(1, description)
+
+
+def add_task(repeat: int, description: str):
     """Add a new task"""
     if not description:
         raise click.UsageError("Add a description.")
 
-    task = Task(description=" ".join(description))
+    task = Task(description=" ".join(description), repeat=(repeat == 1))
     tasks = load_tasks()
     tasks.append(task)
     save_tasks(tasks)
@@ -71,7 +81,7 @@ def d(index):
 @click.argument("index", type=int)
 @click.argument("state")
 def u(index, state):
-    """Update task state - States: pending | started | hold | pr | done"""
+    """Update task state - States: pending | started | hold | pr | pre | done"""
     tasks = load_tasks()
     try:
         new_state = TaskState.from_str(state)
@@ -95,6 +105,10 @@ def clean():
 
     for task in tasks:
         mod_date = datetime.fromisoformat(task.last_modified).date()
+
+        if task.state == TaskState.DONE and task.repeat and mod_date == today:
+            task.update_state(TaskState.PENDING)
+
         if task.state == TaskState.DONE and mod_date < today:
             removed_count += 1
         else:
@@ -138,8 +152,19 @@ def summary(mostrar_todo: bool):
                 tag = "YESTERDAY"
 
             wrapped_desc = "\n".join(textwrap.wrap(task.description, width=MAX_WIDTH))
+            state_text = state.value.upper()
+            if task.repeat:
+                state_text += "*"
 
-            table.append([task.uid, wrapped_desc, state.value.upper(), tag, mod_str])
+            table.append(
+                [
+                    task.uid,
+                    wrapped_desc,
+                    state_text,
+                    tag,
+                    mod_str,
+                ]
+            )
 
     click.echo(
         tabulate(

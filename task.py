@@ -7,7 +7,6 @@ TASKS_FILE = "/home/iago/repos/trask/tasks.json"
 
 class TaskState(Enum):
     DONE = "done"
-    REPEAT = "repeat"
     PRE = "pre"
     PR = "pr"
     STARTED = "started"
@@ -26,12 +25,18 @@ class TaskState(Enum):
 
 class Task:
     def __init__(
-        self, description, state=TaskState.PENDING, last_modified=None, uid=-1
+        self,
+        description,
+        state=TaskState.PENDING,
+        last_modified=None,
+        uid=-1,
+        repeat=False,
     ):
         self.uid = uid
         self.description = description
         self.state = state
         self.last_modified = last_modified or datetime.now().isoformat()
+        self.repeat = repeat
 
     def to_dict(self):
         return {
@@ -39,6 +44,7 @@ class Task:
             "description": self.description,
             "state": self.state.value,
             "last_modified": self.last_modified,
+            "repeat": self.repeat,
         }
 
     @classmethod
@@ -48,6 +54,7 @@ class Task:
             description=data["description"],
             state=TaskState(data["state"]),
             last_modified=data["last_modified"],
+            repeat=data.get("repeat", False),
         )
 
     def update_state(self, new_state: TaskState):
