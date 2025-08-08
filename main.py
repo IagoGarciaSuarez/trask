@@ -106,7 +106,7 @@ def clean():
     for task in tasks:
         mod_date = datetime.fromisoformat(task.last_modified).date()
 
-        if task.state == TaskState.DONE and task.repeat and mod_date == today:
+        if task.state == TaskState.DONE and task.repeat and mod_date < today:
             task.update_state(TaskState.PENDING)
 
         if task.state == TaskState.DONE and mod_date < today:
