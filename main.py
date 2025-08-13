@@ -124,7 +124,7 @@ def clean():
 @cli.command()
 @click.argument("modo", required=False, default="")
 def s(modo):
-    """Tasks summary - Use 's all' to show also 'done'"""
+    """Tasks summary - Use 's all' to show all of them."""
     mostrar_todo = modo.lower() == "all"
     summary(mostrar_todo)
 

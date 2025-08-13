@@ -18,3 +18,11 @@ Add a symbolic link to use it from any location
 Check commands:
 
 > trask
+```
+add    Adds a new task.
+clean  Remove done tasks older than today.
+d      Remove a task by index.
+r      Creates a repeatable task.
+s      Tasks summary - Use 's all' to show all of them.
+u      Update task state
+```
