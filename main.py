@@ -42,12 +42,15 @@ def cli():
 @cli.command()
 @click.argument("description", nargs=-1)
 def add(description: str):
+    """Adds a new task"""
     add_task(0, description)
 
 
 @cli.command()
 @click.argument("description", nargs=-1)
 def r(description: str):
+    """Creates a repeatable task. This task will not be deleted on clean when marked as done
+    but, change to pending again instead."""
     add_task(1, description)
 
 
