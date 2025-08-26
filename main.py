@@ -92,6 +92,7 @@ def u(index, state):
         task.update_state(new_state)
         save_tasks(tasks)
         click.echo(f"State updated: [{new_state.value}] {task.description}")
+        summary(False)
     except IndexError:
         click.echo("Index not valid")
     except click.UsageError as e:
