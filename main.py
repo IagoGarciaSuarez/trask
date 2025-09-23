@@ -179,5 +179,9 @@ def summary(mostrar_todo: bool):
     )
 
 
+def main():
+    cli()
+
+
 if __name__ == "__main__":
     cli()
