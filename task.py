@@ -10,6 +10,7 @@ class TaskState(Enum):
     PRE = "pre"
     PR = "pr"
     STARTED = "started"
+    PAUSED = "paused"
     PENDING = "pending"
     HOLD = "hold"
 
