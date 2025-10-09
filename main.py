@@ -63,6 +63,7 @@ def add_task(repeat: int, description: str):
     tasks = load_tasks()
     tasks.append(task)
     save_tasks(tasks)
+    summary(False)
 
     click.echo("Task added.")
 
@@ -76,6 +77,8 @@ def d(index):
         task = tasks.pop(index)
         save_tasks(tasks)
         click.echo(f"Task removed: {task.description}")
+        summary(False)
+
     except IndexError:
         click.echo("Index not valid")
 
