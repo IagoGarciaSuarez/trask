@@ -2,7 +2,7 @@ from datetime import datetime
 from enum import Enum
 
 
-TASKS_FILE = "/home/iago/repos/trask/tasks.json"
+TASKS_FILE = "/Users/iagogarciasuarez/repos/trask/tasks.json"
 
 
 class TaskState(Enum):

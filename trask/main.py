@@ -9,7 +9,7 @@ import textwrap
 import click
 from tabulate import tabulate
 
-from task import TASKS_FILE, Task, TaskState
+from trask.task import TASKS_FILE, Task, TaskState
 
 term_width = shutil.get_terminal_size((80, 20)).columns
 MAX_WIDTH = int(term_width * 0.25)
